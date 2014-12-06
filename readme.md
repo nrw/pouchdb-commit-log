@@ -50,3 +50,5 @@ Adds `doc` to the `topic` log.
   - materialized view
   - watch topic
   - watch view
+
+- materialized view functions must return an object so they can be saved as json
