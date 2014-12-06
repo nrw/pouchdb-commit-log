@@ -1,7 +1,7 @@
 {
   "name": "pouchdb-commit-log",
   "description": "cluster-friendly append-only topic-based commit log + materialized view implementation for pouchdb (inspired by apache kafka and samza)",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": {
     "url": "nrw/pouchdb-commit-log"
   },
