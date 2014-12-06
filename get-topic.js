@@ -6,10 +6,10 @@ function GetTopic (db) {
   return db
 }
 
-function getTopic (db, topic) {
+function getTopic (db, topic, cb) {
   return db.allDocs({
     startkey: topic,
     endkey: topic + '\xff',
     include_docs: true
-  })
+  }).nodeify(cb)
 }

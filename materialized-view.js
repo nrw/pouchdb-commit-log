@@ -10,8 +10,8 @@ function MaterializedView (db) {
   return db
 }
 
-function materializedView (db, name, topics, fn) {
-  return db.view(topics, fn).then(save)
+function materializedView (db, name, topics, fn, cb) {
+  return db.view(topics, fn).then(save).nodeify(cb)
 
   function save (res) {
     return db.get(name).then(function (doc) {

@@ -11,12 +11,12 @@ function View (db) {
   return db
 }
 
-function view (db, topics, fn) {
+function view (db, topics, fn, cb) {
   if (!Array.isArray(topics)) {
     topics = [topics]
   }
 
   return Promise.resolve().then(function () {
     return topics.map(db.getTopic)
-  }).spread(fn)
+  }).spread(fn).nodeify(cb)
 }

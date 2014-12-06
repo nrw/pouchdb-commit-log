@@ -114,15 +114,20 @@ test('watch view', function (t) {
   WatchView(db1)
 
   var called = 0
-  var cancel = db1.changes({
+  var changes = db1.changes({
     live: true,
     doc_ids: ['-sum'],
     include_docs: true,
     since: 'now'
   }).on('change', function (change) {
     t.ok(change.doc.value === 3 || change.doc.value === 13)
+
     called++
-    if (called === 3) t.end()
+
+    if (called >= 3) {
+      changes.cancel()
+      t.end()
+    }
   })
 
   db1.watchView('-sum', 'numbers', function (res) {
@@ -131,7 +136,52 @@ test('watch view', function (t) {
         return acc + parseInt(h.doc.name)
       }, 0)
     }
-  })
+  }, {throttle: 0})
 
   db1.append('numbers', {name: '10'})
+})
+
+test('callback api: append', function (t) {
+  db1.append('numbers', {name: '11'}, function (err, res) {
+    t.error(err)
+    t.ok(res.ok)
+    t.end()
+  })
+})
+
+test('callback api: materialized view', function (t) {
+  db1.materializedView('-diff', 'numbers', function (numbers) {
+    return {
+      value: numbers.rows.reduce(function (acc, h) {
+        return acc - parseInt(h.doc.name)
+      }, 0)
+    }
+  }, function (err, res) {
+    t.error(err)
+    t.ok(res.ok)
+    t.end()
+  })
+})
+
+test('callback api: view', function (t) {
+  db1.view('numbers', function (numbers) {
+    return numbers.rows.reduce(function (acc, h) {
+      return acc - parseInt(h.doc.name)
+    }, 0)
+  }, function (err, res) {
+    t.error(err)
+    t.equal(res, -24)
+    t.end()
+  })
+})
+
+test('callback api: get topic', function (t) {
+  db1.getTopic('numbers', function (err, res) {
+    t.error(err)
+    var vals = res.rows.map(function (row) {
+      return row.doc.name
+    })
+    t.same(vals, ['1','2','10','11'])
+    t.end()
+  })
 })

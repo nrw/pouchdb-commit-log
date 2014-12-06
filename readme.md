@@ -44,7 +44,6 @@ Adds `doc` to the `topic` log.
 
 ### TODO
 
-- nodeify api
 - docs for
   - get topic
   - view
