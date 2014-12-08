@@ -19,10 +19,10 @@ function materializedView (db, name, topics, fn, cb) {
     }).catch(function (err) {
       if (err.status === 404) {
         return db.put(res, name)
-      } else if (err.status === 409) {
+      }
+    }).catch(function (err) {
+      if (err.status === 409) {
         return save(res)
-      } else {
-        throw err
       }
     })
   }

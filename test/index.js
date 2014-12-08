@@ -136,7 +136,7 @@ test('watch view', function (t) {
         return acc + parseInt(h.doc.name)
       }, 0)
     }
-  }, {throttle: 0})
+  }, {throttle: 1})
 
   db1.append('numbers', {name: '10'})
 })
