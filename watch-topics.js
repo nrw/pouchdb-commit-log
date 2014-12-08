@@ -17,7 +17,7 @@ function watchTopics (db, opts) {
 
   db.changes(opts).on('change', function (change) {
     var topic = change.id.split(sep)[0]
-    emitter.emit(topic)
+    emitter.emit(topic, change)
   })
 
   return emitter
