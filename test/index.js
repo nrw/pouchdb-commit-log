@@ -121,10 +121,9 @@ test('watch view', function (t) {
     since: 'now'
   }).on('change', function (change) {
     t.ok(change.doc.value === 3 || change.doc.value === 13)
-
     called++
 
-    if (called >= 3) {
+    if (called >= 2) {
       changes.cancel()
       t.end()
     }
@@ -138,7 +137,10 @@ test('watch view', function (t) {
     }
   }, {throttle: 1})
 
-  db1.append('numbers', {name: '10'})
+  setTimeout(function () {
+    db1.append('numbers', {name: '10'})
+  }, 10)
+
 })
 
 test('callback api: append', function (t) {

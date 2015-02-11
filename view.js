@@ -1,4 +1,4 @@
-var Promise = require('bluebird')
+var Q = require('bluebird')
 var GetTopic = require('./get-topic')
 
 module.exports = View
@@ -16,7 +16,7 @@ function view (db, topics, fn, cb) {
     topics = [topics]
   }
 
-  return Promise.resolve().then(function () {
+  return Q.resolve().then(function () {
     return topics.map(db.getTopic)
   }).spread(fn).nodeify(cb)
 }

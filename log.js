@@ -1,4 +1,5 @@
 var Time = require('monotonic-timestamp')
+var Q = require('bluebird')
 
 var sep = '\x00'
 
@@ -12,8 +13,8 @@ function CommitLog (db, node) {
   return db
 
   function append (topic, obj, cb) {
-    return db
-      .put(obj, [topic, Time().toString(36), node].join(sep))
-      .nodeify(cb)
+    return Q.resolve().then(function () {
+      return db.put(obj, [topic, Time().toString(36), node].join(sep))
+    }).nodeify(cb)
   }
 }

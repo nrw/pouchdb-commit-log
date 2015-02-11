@@ -1,3 +1,5 @@
+var Q = require('bluebird')
+
 var View = require('./view')
 
 module.exports = MaterializedView
@@ -11,7 +13,9 @@ function MaterializedView (db) {
 }
 
 function materializedView (db, name, topics, fn, cb) {
-  return db.view(topics, fn).then(save).nodeify(cb)
+  return Q.resolve().then(function () {
+    return db.view(topics, fn)
+  }).then(save).nodeify(cb)
 
   function save (res) {
     return db.get(name).then(function (doc) {

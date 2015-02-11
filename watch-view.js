@@ -1,6 +1,7 @@
+var throttle = require('lodash.throttle')
+
 var WatchTopics = require('./watch-topics')
 var MaterializedView = require('./materialized-view')
-var throttle = require('lodash.throttle')
 
 module.exports = WatchView
 

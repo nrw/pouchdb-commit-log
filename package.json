@@ -12,14 +12,14 @@
     "watch": "nodemon -q -x 'tape test/*.js' | tap-colorize"
   },
   "dependencies": {
-    "bluebird": "^2.3.11",
+    "bluebird": "^2.9.8",
     "eventemitter2": "^0.4.14",
-    "lodash.throttle": "^2.4.1",
+    "lodash.throttle": "^3.0.0",
     "monotonic-timestamp": "0.0.9"
   },
   "devDependencies": {
     "memdown": "^1.0.0",
-    "pouchdb": "^3.2.0",
-    "tape": "3.x.x"
+    "pouchdb": "^3.3.0",
+    "tape": "^3.5.0"
   }
 }
